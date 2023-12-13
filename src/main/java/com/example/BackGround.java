@@ -18,6 +18,11 @@ public class BackGround {
     // 用于显示城堡
     private BufferedImage castle = null;
 
+    // 判断是否到达旗杆位置
+    private boolean isReach = false;
+    // 判断旗子是否落地
+    private boolean isBase = false;
+
     public BackGround() {
 
     }
@@ -186,6 +191,22 @@ public class BackGround {
 
     public BufferedImage getCastle() {
         return castle;
+    }
+
+    public boolean isReach() {
+        return isReach;
+    }
+
+    public void setReach(boolean isReach) {
+        this.isReach = isReach;
+    }
+
+    public boolean isBase() {
+        return isBase;
+    }
+
+    public void setBase(boolean isBase) {
+        this.isBase = isBase;
     }
 
 }

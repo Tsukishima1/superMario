@@ -130,6 +130,12 @@ public class MyFrame extends JFrame implements KeyListener, Runnable {
                     // 重置坐标
                     mario.setX(10);
                 }
+
+                // 判断游戏是否结束
+                if (mario.isOK()) {
+                    JOptionPane.showMessageDialog(this, "恭喜你！通关成功！");
+                    System.exit(0); // 退出程序
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
