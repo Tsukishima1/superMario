@@ -94,11 +94,11 @@ public class BackGround {
             // 绘制第二个水管
             for (int i = 330; i <= 600; i += 25) {
                 if (i == 330) {
-                    obstacleList.add(new Obstacle(60, i, 3, this));
-                    obstacleList.add(new Obstacle(85, i, 4, this));
+                    obstacleList.add(new Obstacle(620, i, 3, this));
+                    obstacleList.add(new Obstacle(645, i, 4, this));
                 } else {
-                    obstacleList.add(new Obstacle(60, i, 5, this));
-                    obstacleList.add(new Obstacle(85, i, 6, this));
+                    obstacleList.add(new Obstacle(620, i, 5, this));
+                    obstacleList.add(new Obstacle(645, i, 6, this));
                 }
             }
             // 绘制砖块C
