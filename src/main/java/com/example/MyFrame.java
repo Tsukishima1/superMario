@@ -3,6 +3,8 @@ package com.example;
 import javax.swing.*;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -68,6 +70,10 @@ public class MyFrame extends JFrame implements KeyListener, Runnable {
 
         // 绘制背景
         graphics.drawImage(nowBg.getBgImage(), 0, 0, this);
+        // 绘制敌人 
+        for (Enemy enemy : nowBg.getEnemyList()) {
+            graphics.drawImage(enemy.getShow(), enemy.getX(), enemy.getY(), this);
+        }
         // 绘制障碍物
         for (Obstacle obstacle : nowBg.getObstacleList()) {
             graphics.drawImage(obstacle.getShow(), obstacle.getX(), obstacle.getY(), this);
@@ -78,6 +84,12 @@ public class MyFrame extends JFrame implements KeyListener, Runnable {
         graphics.drawImage(nowBg.getFlagpole(), 500, 220, this);
         // 绘制马里奥
         graphics.drawImage(mario.getShow(), mario.getX(), mario.getY(), this);
+        // 添加分数
+        Color c = graphics.getColor();
+        graphics.setColor(Color.BLACK);
+        graphics.setFont(new Font("黑体", Font.BOLD, 25));
+        graphics.drawString("当前你获得的分数为：" + mario.getScore(), 270, 100);
+        graphics.setColor(c);
         // 把图像绘制在窗口中
         g.drawImage(offScreenImage, 0, 0, this);
     }
@@ -129,6 +141,12 @@ public class MyFrame extends JFrame implements KeyListener, Runnable {
                     mario.setBackGround(nowBg);
                     // 重置坐标
                     mario.setX(10);
+                }
+
+                // 判断马里奥是否死亡 
+                if (mario.isDeath()) {
+                    JOptionPane.showMessageDialog(this, "很遗憾！你似了！");
+                    System.exit(0); // 退出程序
                 }
 
                 // 判断游戏是否结束

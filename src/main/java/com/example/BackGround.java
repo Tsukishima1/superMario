@@ -22,6 +22,8 @@ public class BackGround {
     private boolean isReach = false;
     // 判断旗子是否落地
     private boolean isBase = false;
+    // 存放所有敌人
+    private List<Enemy> enemyList = new ArrayList<>();
 
     public BackGround() {
 
@@ -74,6 +76,11 @@ public class BackGround {
                     obstacleList.add(new Obstacle(645, i, 6, this));
                 }
             }
+        
+            // 绘制第一关的蘑菇敌人
+            enemyList.add(new Enemy(580, 385, true, 1, this));
+            // 绘制第一关的食人花敌人
+            enemyList.add(new Enemy(635, 420, true, 2, 328, 428, this));
         }
         // 判断是否为第二关
         if (sort == 2) {
@@ -126,11 +133,17 @@ public class BackGround {
             }
             // 绘制妨碍1砖块
             obstacleList.add(new Obstacle(240, 300, 0, this));
-
             // 绘制空1-4砖块
             for (int i = 360; i <= 540; i += 60) {
                 obstacleList.add(new Obstacle(i, 270, 7, this));
             }
+        
+            // 绘制第二关的蘑菇敌人
+            enemyList.add(new Enemy(500, 385, true, 1, this));
+            enemyList.add(new Enemy(200, 385, true, 1, this));
+            // 绘制第二关的食人花敌人
+            enemyList.add(new Enemy(75, 420, true, 2, 328, 418, this));
+            enemyList.add(new Enemy(635, 420, true, 2, 298, 388, this));
         }
         // 判断是否为第三关
         if (sort == 3) {
@@ -166,6 +179,8 @@ public class BackGround {
 
             obstacleList.add(new Obstacle(515, 220, 8, this));
 
+            // 绘制第三关的蘑菇敌人
+            enemyList.add(new Enemy(150, 385, true, 1, this));
         }
     }
 
@@ -209,4 +224,7 @@ public class BackGround {
         this.isBase = isBase;
     }
 
+    public List<Enemy> getEnemyList() {
+        return enemyList;
+    }
 }

@@ -25,6 +25,10 @@ public class Mario implements Runnable {
     private int upTime;
     // 是否走到城堡门口
     private boolean isOK;
+    // 是否死亡
+    private boolean isDeath = false;
+    // 表示分数，规定消除方块加一分，消灭敌人加两分
+    private int score = 0;
 
     public Mario() {
 
@@ -66,9 +70,17 @@ public class Mario implements Runnable {
     public void setBackGround(BackGround backGround) {
         this.backGround = backGround;
     }
-    
+
     public boolean isOK() {
         return isOK;
+    }
+
+    public boolean isDeath() {
+        return isDeath;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     @Override
@@ -118,6 +130,9 @@ public class Mario implements Runnable {
                         if (ob.getType() == 0) {
                             // 撞碎砖块
                             backGround.getObstacleList().remove(ob);
+
+                            // 分数加一
+                            score++;
                         } else {
                             // 跳起来顶到砖块
                             upTime = 0;
@@ -133,6 +148,33 @@ public class Mario implements Runnable {
                         canLeft = false;
                     }
 
+                }
+
+                // 判断马里奥是否碰到敌人死亡或者踩死蘑菇敌人
+                for (int i = 0; i < backGround.getEnemyList().size(); i++) {
+                    Enemy e = backGround.getEnemyList().get(i);
+                    // 判断是否位于敌人头上
+                    if (e.getY() == this.y + 20 && (e.getX() - 25 < this.x && e.getX() + 35 >= this.x)) {
+                        // 判断蘑菇还是食人花
+                        if (e.getType() == 1) {
+                            // 踩死蘑菇敌人
+                            e.death();
+                            // 跳起来
+                            upTime = 5;
+                            ySpeed = -10;
+
+                            // 分数加二
+                            score += 2;
+                        } else {
+                            // 马里奥死亡
+                            death();
+                        }
+                    }
+                    if ((e.getX() + 35 > this.x && e.getX() - 25 < this.x)
+                            && (e.getY() + 35 > this.y && e.getY() - 20 < this.y)) {
+                        // 马里奥死亡
+                        death();
+                    }
                 }
 
                 // 进行跳跃的操作
@@ -211,7 +253,7 @@ public class Mario implements Runnable {
         xSpeed = -5;
         // 判断是否碰到旗子
         if (backGround.isReach()) {
-            xSpeed=0;
+            xSpeed = 0;
         }
 
         // 判断是否处于空中
@@ -228,7 +270,7 @@ public class Mario implements Runnable {
         xSpeed = 5;
         // 判断是否碰到旗子
         if (backGround.isReach()) {
-            xSpeed=0;
+            xSpeed = 0;
         }
 
         // 判断是否处于空中
@@ -279,7 +321,7 @@ public class Mario implements Runnable {
         }
         // 判断是否碰到旗子
         if (backGround.isReach()) {
-            ySpeed=0;
+            ySpeed = 0;
         }
     }
 
@@ -293,5 +335,10 @@ public class Mario implements Runnable {
         }
         // 改变速度
         ySpeed = 10;
+    }
+
+    // 马里奥死亡方法
+    public void death() {
+        isDeath = true;
     }
 }
