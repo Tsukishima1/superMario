@@ -35,7 +35,7 @@ public class StaticValue {
     // 食人花敌人
     public static List<BufferedImage> flower = new ArrayList<>();
     // 路径前缀，方便后续调用
-    public static String path = System.getProperty("user.dir") + "/src/images/";
+    public static String path = System.getProperty("user.dir") + "/src/main/resource/images/";
     
     // 初始化方法
     public static void init() throws IOException {

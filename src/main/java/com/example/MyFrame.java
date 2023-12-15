@@ -1,6 +1,9 @@
 package com.example;
 
 import javax.swing.*;
+
+import javazoom.jl.decoder.JavaLayerException;
+
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.awt.Color;
@@ -54,6 +57,13 @@ public class MyFrame extends JFrame implements KeyListener, Runnable {
         repaint();
         // 启动线程
         thread.start();
+
+        // 播放音乐
+        try {
+            new Music();
+        } catch (JavaLayerException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) throws IOException {

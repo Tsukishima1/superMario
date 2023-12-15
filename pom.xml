@@ -32,6 +32,14 @@
       <version>7.0</version>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>jl</groupId>
+      <artifactId>jl</artifactId>
+      <version>1.0.1</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/lib/jl-1.0.1.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <build>
