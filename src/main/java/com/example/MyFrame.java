@@ -13,16 +13,23 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.*;
 
+import java.awt.Component;
+
 public class MyFrame extends JFrame implements KeyListener, Runnable {
     // 用于存储所有背景
-    private List<BackGround> allBg = new ArrayList<>();
+    List<BackGround> allBg = new ArrayList<>();
     // 用于存储当前背景
-    private BackGround nowBg = new BackGround();
+    BackGround nowBg = new BackGround();
+
+    public void setBackGround(BackGround nowBg) {
+        this.nowBg = nowBg;
+    }
+
     // 用于双缓存
     private Image offScreenImage = null;
 
     // 马里奥对象
-    private Mario mario = new Mario();
+    Mario mario = new Mario();
     // 定义一个线程对象，实现马里奥的运动
     private Thread thread = new Thread(this);
 
@@ -64,6 +71,10 @@ public class MyFrame extends JFrame implements KeyListener, Runnable {
         } catch (JavaLayerException e) {
             e.printStackTrace();
         }
+    }
+
+    public MyFrame(Mario mario2) {
+        this.mario = mario2;
     }
 
     public static void main(String[] args) throws IOException {
@@ -113,15 +124,15 @@ public class MyFrame extends JFrame implements KeyListener, Runnable {
     @Override
     public void keyPressed(KeyEvent e) {
         // 向左移动
-        if (e.getKeyCode() == 37) {
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             mario.leftMove();
         }
         // 向右移动
-        if (e.getKeyCode() == 39) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             mario.rightMove();
         }
         // 跳跃
-        if (e.getKeyCode() == 38) {
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
             mario.jump();
         }
     }
@@ -130,11 +141,11 @@ public class MyFrame extends JFrame implements KeyListener, Runnable {
     @Override
     public void keyReleased(KeyEvent e) {
         // 向左停止
-        if (e.getKeyCode() == 37) {
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             mario.leftStop();
         }
         // 向右停止
-        if (e.getKeyCode() == 39) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             mario.rightStop();
         }
     }
@@ -155,18 +166,29 @@ public class MyFrame extends JFrame implements KeyListener, Runnable {
 
                 // 判断马里奥是否死亡 
                 if (mario.isDeath()) {
-                    JOptionPane.showMessageDialog(this, "很遗憾！你似了！");
-                    System.exit(0); // 退出程序
+                    showMessageDialog(this, "很遗憾！你似了！");
+                    exit(0); // 退出程序
                 }
 
                 // 判断游戏是否结束
                 if (mario.isOK()) {
-                    JOptionPane.showMessageDialog(this, "恭喜你！通关成功！");
-                    System.exit(0); // 退出程序
+                    showMessageDialog(this, "恭喜你！通关成功！");
+                    exit(0); // 退出程序
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public Object getMario() {
+        return mario;
+    }
+
+    public void showMessageDialog(Component parentComponent, Object message) {
+        JOptionPane.showMessageDialog(parentComponent, message);
+    }
+    public void exit(int status) {
+        System.exit(status);
     }
 }

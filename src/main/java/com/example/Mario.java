@@ -27,11 +27,12 @@ public class Mario implements Runnable {
     private boolean isOK;
     // 是否死亡
     private boolean isDeath = false;
+
     // 表示分数，规定消除方块加一分，消灭敌人加两分
     private int score = 0;
 
     public Mario() {
-
+        this.status = "stand--right";
     }
 
     public Mario(int x, int y) {
@@ -71,12 +72,24 @@ public class Mario implements Runnable {
         this.backGround = backGround;
     }
 
+    public BackGround getBackGround() {
+        return backGround;
+    }
+
     public boolean isOK() {
         return isOK;
     }
 
+    public void setOK(boolean isOK) {
+        this.isOK = isOK;
+    }
+
     public boolean isDeath() {
         return isDeath;
+    }
+
+    public void setDeath(boolean isDeath) {
+        this.isDeath = isDeath;
     }
 
     public int getScore() {
@@ -340,5 +353,18 @@ public class Mario implements Runnable {
     // 马里奥死亡方法
     public void death() {
         isDeath = true;
+    }
+
+    // 判断是否向左移动
+    public boolean isLeftMoving() {
+        return status.indexOf("left") != -1 && status.indexOf("jump") == -1;
+    }
+    // 判断是否向右移动
+    public boolean isRightMoving() {
+        return status.indexOf("right") != -1 && status.indexOf("jump") == -1;
+    }
+    // 判断是否跳跃
+    public boolean isJumping() {
+        return status.indexOf("jump") != -1;
     }
 }
